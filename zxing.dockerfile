@@ -7,7 +7,7 @@
 # Purpose:
 #  - Build the zxing wheel
 #
-FROM python:3.11-slim-bookworm AS builder
+FROM ghcr.io/benoitanastay/paperless-ngx/aarch64:2.1.8 AS builder
 
 ARG ZXING_VERSION=2.3.0
 ARG DEBIAN_FRONTEND=noninteractive
@@ -26,8 +26,6 @@ RUN set -eux \
   && echo "Installing build tools" \
     && apt-get update --quiet \
     && apt-get install --yes --quiet --no-install-recommends ${BUILD_PACKAGES} \
-  && echo "Installing Python tools" \
-    && python3 -m pip install --no-cache-dir --upgrade pip wheel \
   && echo "Building zxing wheel ${ZXING_VERSION}" \
     && cd /usr/src \
     && mkdir wheels \

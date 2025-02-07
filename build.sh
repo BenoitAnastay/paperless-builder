@@ -41,7 +41,7 @@ function build_psycopg()
 function build_zxing()
 {
 	local -r image_tag="zxing:${1}"
-	docker build --tag "${image_tag}" --build-arg ZXING_VERSION="${1}" --file zxing.dockerfile --progress plain .
+	docker buildx build linux/arm64 --tag "${image_tag}" --build-arg ZXING_VERSION="${1}" --file zxing.dockerfile --progress plain .
 	image_id=$(docker create "${image_tag}")
 	mkdir -v -p outputs/zxing
 	docker cp "${image_id}":/usr/src/zxing/ outputs/
